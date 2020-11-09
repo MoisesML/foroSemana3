@@ -7,7 +7,7 @@ from controllers.persona import PersonasController
 from controllers.proyecto import ProyectosController, ProyectoController
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:root@localhost/portafolio'
+app.config['SQLALCHEMY_DATABASE_URI']='mysql://s3y37k82kydfuzsx:uo2flrzhi1rzp16m@ko86t9azcob3a2f9.cbetxkdyhwsb.us-east-1.rds.amazonaws.com/ggdki8pav3lyhj0l'
 api = Api(app=app)
 
 @app.before_first_request
