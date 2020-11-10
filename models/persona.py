@@ -6,6 +6,7 @@ class PersonaModel(db.Model):
     nombre = db.Column("person_nombre", db.String(20))
     dni = db.Column("person_dni", db.Integer)
     telefono = db.Column("person_telefono", db.String(12))
+    proyecto = db.relationship('ProyectoModel', backref='persona')
 
     def __init__(self, nombre, dni, telefono):
         self.nombre = nombre

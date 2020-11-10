@@ -13,6 +13,7 @@ api = Api(app=app)
 @app.before_first_request
 def iniciador():
     db.init_app(app)
+    db.drop_all(app=app)
     db.create_all(app=app)
 
 @app.route("/")
@@ -20,7 +21,7 @@ def inicio():
     return 'Servidor - Foro semana 3 corriendo exitosamente'
 
 api.add_resource(PersonasController,'/persona')
-api.add_resource(ProyectosController, '/proyecto')
+api.add_resource(ProyectosController,'/proyecto')
 api.add_resource(ProyectoController,'/proyecto/<int:proyecto_id>')
 
 if __name__ == '__main__':
