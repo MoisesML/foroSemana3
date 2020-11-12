@@ -57,3 +57,13 @@ class PersonasController(Resource):
                 'Content':None,
                 'Message':'No se pudo registrar a la persona en la API'
             }, 400
+
+class PersonaController(Resource):
+    def get (self, person_id):
+        persona = PersonaModel.query.filter_by(id=person_id).first()
+        resultado = persona.mostrar_json()
+        return {
+            'Confirm':True,
+            'Content':resultado,
+            'Message':'Esta es la informacion de la persona con id '+str(person_id)
+        }

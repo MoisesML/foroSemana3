@@ -4,7 +4,7 @@ from flask_cors import CORS
 from baseDatos import db
 
 #Importar controllers
-from controllers.persona import PersonasController
+from controllers.persona import PersonasController, PersonaController
 from controllers.proyecto import ProyectosController, ProyectoController
 from controllers.skill import SkillController
 from controllers.solicitudes import SolicitudesController, SolicitudController
@@ -26,6 +26,7 @@ def inicio():
     return 'Servidor - Foro semana 3 corriendo exitosamente'
 
 api.add_resource(PersonasController,'/persona')
+api.add_resource(PersonaController,'/persona/<int:person_id>')
 api.add_resource(ProyectosController,'/proyecto')
 api.add_resource(ProyectoController,'/proyecto/<int:proyecto_id>')
 api.add_resource(SkillController,'/skill')
