@@ -6,13 +6,13 @@ class ProyectoModel(db.Model):
     nombre = db.Column("proyecto_nombre", db.String(50))
     empresa = db.Column("proyecto_empresa", db.String(50))
     duracion = db.Column("proyecto_duracion", db.Integer)
-    persona = db.Column(db.Integer, db.ForeignKey('t_personas.person_dni'), nullable=False)
+    person_id = db.Column(db.Integer, db.ForeignKey('t_personas.person_id'))
 
-    def __init__(self, nombre, empresa, duracion, persona):
+    def __init__(self, nombre, empresa, duracion, person_id):
         self.nombre = nombre
         self.empresa = empresa
         self.duracion = duracion
-        self.persona = persona
+        self.person_id = person_id
 
     def guardar_datos(self):
         db.session.add(self)
@@ -24,8 +24,8 @@ class ProyectoModel(db.Model):
             'nombre':self.nombre,
             'empresa':self.empresa,
             'duracion':self.duracion,
-            'persona':self.persona
+            'persona':self.person_id
         }
 
     def __str__(self):
-        return '%s, %s, %s, %s'%(self.nombre, self.empresa, self.duracion, self.persona)
+        return '%s, %s, %s, %s'%(self.nombre, self.empresa, self.duracion, self.person_id)

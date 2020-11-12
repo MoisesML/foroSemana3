@@ -19,14 +19,22 @@ class ProyectosController(Resource):
         "duracion",
         type=int,
         required=True,
-        help="Falta la duracion en meses    "
+        help="Falta la duracion en meses"
+    )
+    parser.add_argument(
+        "person_id",
+        type=int,
+        required=True,
+        help="Falta el id de la persona"
     )
 
     def get(self):
         proyectos = ProyectoModel.query.all()
         resultado = []
         for proyecto in proyectos:
-            resultado.append(proyecto.mostrar_json())
+            parcial = proyecto.mostrar_json()
+            parcial['persona'] = proyecto.persona.mostrar_json()
+            resultado.append(parcial)
         if proyectos:
             return {
                 'Confirm':True,
@@ -42,7 +50,7 @@ class ProyectosController(Resource):
 
     def post(self):
         data = self.parser.parse_args()
-        proyecto = ProyectoModel(data['nombre'], data['empresa'], data['duracion'])
+        proyecto = ProyectoModel(data['nombre'], data['empresa'], data['duracion'], data['person_id'])
         try:
             proyecto.guardar_datos()
             return {

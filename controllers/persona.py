@@ -24,11 +24,21 @@ class PersonasController(Resource):
 
     def get(self):
         personas = PersonaModel.query.all()
-        busqueda = []
+        resultado = []
         for persona in personas:
-            busqueda.append(persona.mostrar_json())
+            temporal = persona.mostrar_json()
+            lista = []
+            lista1 = []
+            for skill in persona.skills:
+                lista1.append(skill.mostrar_json())
+            for proyecto in persona.proyecto:
+                lista.append(proyecto.mostrar_json())
+            temporal['proyectos'] = lista
+            temporal['skills'] = lista1
+            resultado.append(temporal)
+
         return {
-            'Content':busqueda
+            'Content':resultado
         }
 
     def post(self):
