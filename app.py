@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_restful import Api
+from flask_cors import CORS
 from baseDatos import db
 
 #Importar controllers
@@ -9,6 +10,7 @@ from controllers.skill import SkillController
 from controllers.solicitudes import SolicitudesController, SolicitudController
 
 app = Flask(__name__)
+CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI']='mysql://s3y37k82kydfuzsx:uo2flrzhi1rzp16m@ko86t9azcob3a2f9.cbetxkdyhwsb.us-east-1.rds.amazonaws.com/ggdki8pav3lyhj0l'
 # app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:root@localhost/portafolio'
 api = Api(app=app)
