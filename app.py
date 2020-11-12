@@ -16,7 +16,7 @@ api = Api(app=app)
 @app.before_first_request
 def iniciador():
     db.init_app(app)
-    db.drop_all(app=app)
+    # db.drop_all(app=app)
     db.create_all(app=app)
 
 @app.route("/")
