@@ -33,6 +33,18 @@ class PersonasController(Resource):
         required=True,
         help="Falta su puesto"
     )
+    parser.add_argument(
+        "desc_personal",
+        type=str,
+        required=True,
+        help="Falta su descripcion personal"
+    )
+    parser.add_argument(
+        "desc_profesional",
+        type=str,
+        required=True,
+        help="Falta su descripcion profesional"
+    )
 
     def get(self):
         personas = PersonaModel.query.all()
@@ -55,7 +67,7 @@ class PersonasController(Resource):
 
     def post(self):
         data = self.parser.parse_args()
-        persona = PersonaModel(data['nombre'], data['dni'], data['telefono'], data['email'], data['puesto'])
+        persona = PersonaModel(data['nombre'], data['dni'], data['telefono'], data['email'], data['puesto'], data['desc_personal'], data['desc_profesional'])
         try:
             persona.guardar_datos()
             return {
