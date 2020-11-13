@@ -5,11 +5,13 @@ class SkillModel(db.Model):
     id = db.Column('skil_id', db.Integer, primary_key=True)
     nombre = db.Column('skil_nombre', db.String(20))
     valoracion  = db.Column('skil_valor', db.DECIMAL(2,1))
+    descripcion = db.Column('skil_desc', db.Text)
     person_id = db.Column(db.Integer, db.ForeignKey('t_personas.person_id'))
 
-    def __init__(self, nombre, valoracion, person_id):
+    def __init__(self, nombre, valoracion, descripcion, person_id):
         self.nombre = nombre
         self.valoracion = valoracion
+        self.descripcion = descripcion
         self.person_id = person_id
 
     def guardar_datos(self):
@@ -21,8 +23,9 @@ class SkillModel(db.Model):
             'id':self.id,
             'nombre':self.nombre,
             'valoracion':float(self.valoracion),
+            'descripcion':self.descripcion,
             'persona':self.person_id
         }
 
     def __str__(self):
-        return '%s, %s, %s, %s'%(self.nombre, self.valoracion, self.person_id)
+        return '%s, %s, %s, %s, %s'%(self.nombre, self.valoracion,self.descripcion, self.person_id)

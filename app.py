@@ -6,7 +6,7 @@ from baseDatos import db
 #Importar controllers
 from controllers.persona import PersonasController, PersonaController
 from controllers.proyecto import ProyectosController, ProyectoController
-from controllers.skill import SkillController
+from controllers.skill import SkillController, SkillsController
 from controllers.solicitudes import SolicitudesController, SolicitudController
 
 app = Flask(__name__)
@@ -18,7 +18,7 @@ api = Api(app=app)
 @app.before_first_request
 def iniciador():
     db.init_app(app)
-    # db.drop_all(app=app)
+    db.drop_all(app=app)
     db.create_all(app=app)
 
 @app.route("/")
@@ -29,7 +29,8 @@ api.add_resource(PersonasController,'/persona')
 api.add_resource(PersonaController,'/persona/<int:person_id>')
 api.add_resource(ProyectosController,'/proyecto')
 api.add_resource(ProyectoController,'/proyecto/<int:proyecto_id>')
-api.add_resource(SkillController,'/skill')
+api.add_resource(SkillsController,'/skill')
+api.add_resource(SkillController,'/skill/<int:persona>')
 api.add_resource(SolicitudesController,'/solicitudes')
 api.add_resource(SolicitudController,'/solicitud/<int:persona>')
 

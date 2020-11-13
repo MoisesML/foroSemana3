@@ -1,7 +1,7 @@
 from flask_restful import Resource, reqparse
 from models.skill import SkillModel
 
-class SkillController(Resource):
+class SkillsController(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument(
         "nombre",
@@ -20,6 +20,12 @@ class SkillController(Resource):
         type=int,
         required=True,
         help='Ingrese el id de la persona'
+    )
+    parser.add_argument(
+        "descripcion",
+        type=str,
+        required=True,
+        help='Ingrese la descripcion de la skill'
     )
 
     def get(self):
@@ -44,7 +50,7 @@ class SkillController(Resource):
 
     def post(self):
         data = self.parser.parse_args()
-        skill = SkillModel(data['nombre'], data['valoracion'], data['person_id'])
+        skill = SkillModel(data['nombre'], data['valoracion'], data['person_id'], data['descripcion'])
         try:
             skill.guardar_datos()
             return {
@@ -58,3 +64,13 @@ class SkillController(Resource):
                 'Content':None,
                 'Message':'No se pudo asignar la skill'
             }, 400
+
+class SkillController(Resource):
+    def get(self, persona):
+        skills = SkillModel.query.filter_by(person_id=persona)
+        resultado = []
+        for skill in skills:
+            resultado.append(skill.mostrar_json())
+        return {
+            'Content':resultado
+        }
