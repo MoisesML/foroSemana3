@@ -16,16 +16,16 @@ class SkillsController(Resource):
         help='Ingrese la valoracion de la skill'
     )
     parser.add_argument(
-        "person_id",
-        type=int,
-        required=True,
-        help='Ingrese el id de la persona'
-    )
-    parser.add_argument(
         "descripcion",
         type=str,
         required=True,
         help='Ingrese la descripcion de la skill'
+    )
+    parser.add_argument(
+        "person_id",
+        type=int,
+        required=True,
+        help='Ingrese el id de la persona'
     )
 
     def get(self):
@@ -50,7 +50,7 @@ class SkillsController(Resource):
 
     def post(self):
         data = self.parser.parse_args()
-        skill = SkillModel(data['nombre'], data['valoracion'], data['person_id'], data['descripcion'])
+        skill = SkillModel(data['nombre'], data['valoracion'], data['descripcion'] , data['person_id'])
         try:
             skill.guardar_datos()
             return {
