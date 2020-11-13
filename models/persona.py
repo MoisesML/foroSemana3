@@ -34,8 +34,8 @@ class PersonaModel(db.Model):
             'telefono':self.telefono,
             'email':self.email,
             'puesto':self.puesto,
-            'desc_personal' = self.desc_personal,
-            'desc_profesional' = self.desc_profesional
+            'desc_personal':self.desc_personal,
+            'desc_profesional':self.desc_profesional
         }
 
     def __str__(self):
