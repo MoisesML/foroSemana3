@@ -22,6 +22,12 @@ class SkillsController(Resource):
         help='Ingrese la descripcion de la skill'
     )
     parser.add_argument(
+        "url",
+        type=str,
+        required=True,
+        help='Ingrese la url de una imagen representativa'
+    )
+    parser.add_argument(
         "person_id",
         type=int,
         required=True,
@@ -50,7 +56,7 @@ class SkillsController(Resource):
 
     def post(self):
         data = self.parser.parse_args()
-        skill = SkillModel(data['nombre'], data['valoracion'], data['descripcion'] , data['person_id'])
+        skill = SkillModel(data['nombre'], data['valoracion'], data['descripcion'], data['url'], data['person_id'])
         try:
             skill.guardar_datos()
             return {
@@ -72,5 +78,7 @@ class SkillController(Resource):
         for skill in skills:
             resultado.append(skill.mostrar_json())
         return {
-            'Content':resultado
+            'Confirm':True,
+            'Content':resultado,
+            'Message':'Estas son las skill del id pedido'
         }

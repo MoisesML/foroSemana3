@@ -28,6 +28,12 @@ class PersonasController(Resource):
         help="Falta su email"
     )
     parser.add_argument(
+        "direccion",
+        type=str,
+        required=True,
+        help="Falta su direccion"
+    )
+    parser.add_argument(
         "puesto",
         type=str,
         required=True,
@@ -67,7 +73,7 @@ class PersonasController(Resource):
 
     def post(self):
         data = self.parser.parse_args()
-        persona = PersonaModel(data['nombre'], data['dni'], data['telefono'], data['email'], data['puesto'], data['desc_personal'], data['desc_profesional'])
+        persona = PersonaModel(data['nombre'], data['dni'], data['telefono'], data['email'],data['direccion'], data['puesto'], data['desc_personal'], data['desc_profesional'])
         try:
             persona.guardar_datos()
             return {
@@ -105,12 +111,16 @@ class PersonaController(Resource):
                 type=str
             )
             data = parser.parse_args()
-            persona.desc_personal = data['desc_personal']
-            persona.desc_profesional = data['desc_profesional']
+            if data["desc_personal"] != "":
+                persona.desc_personal = data["desc_personal"]
+            
+            if data["desc_profesional"] != "":
+                persona.desc_profesional = data["desc_profesional"]
+
             persona.guardar_datos()
             return {
                 'Confirm':True,
-                'Content':persona,
+                'Content':persona.mostrar_json(),
                 'Message':'Se actualizo la información correctamente'
             }
         else:
