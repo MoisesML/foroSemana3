@@ -91,3 +91,32 @@ class PersonaController(Resource):
             'Content':resultado,
             'Message':'Esta es la informacion de la persona con id '+str(person_id)
         }
+
+    def put(self, person_id):
+        persona = PersonaModel.query.filter_by(id=person_id).first()
+        if persona:
+            parser = reqparse.RequestParser()
+            parser.add_argument(
+                "desc_personal",
+                type=str
+            )
+            parser.add_argument(
+                "desc_profesional",
+                type=str
+            )
+            data = parser.parse_args()
+            persona.desc_personal = data['desc_personal']
+            persona.desc_profesional = data['desc_profesional']
+            persona.guardar_datos()
+            return {
+                'Confirm':True,
+                'Content':resultado,
+                'Message':'Se actualizo la información correctamente'
+            }
+        else:
+            return {
+                'Confirm':False,
+                'Content':None,
+                'Message':'No existe persona con ese id'
+            }
+        
