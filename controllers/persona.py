@@ -110,7 +110,7 @@ class PersonaController(Resource):
             persona.guardar_datos()
             return {
                 'Confirm':True,
-                'Content':resultado,
+                'Content':persona,
                 'Message':'Se actualizo la información correctamente'
             }
         else:
